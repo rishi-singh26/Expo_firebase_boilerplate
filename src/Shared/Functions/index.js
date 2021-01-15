@@ -54,5 +54,5 @@ export function sortArrayOfObjs(array, sortingKey) {
 
 export function copyToClipboard(data) {
   Clipboard.setString(data.scannedData.data);
-  toast("Copied to clipboard.");
+  // toast("Copied to clipboard.");
 }

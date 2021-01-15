@@ -1,6 +1,5 @@
 import * as ActionTypes from "./ActionTypes";
 import { auth, firestore } from "../../Constants/Api";
-import { toast } from "../../Shared/Functions";
 
 export const signUpUser = (userData) => (dispatch) => {
   dispatch(requestLogin());
@@ -19,7 +18,7 @@ export const signUpUser = (userData) => (dispatch) => {
     .catch((err) => {
       console.log("Error in signup", err.message);
       dispatch(loginError(err.message));
-      toast("Sign up failed");
+      // toast("Sign up failed");
     });
 };
 
@@ -33,12 +32,12 @@ const saveUserData = (userData, user) => (dispatch) => {
       //   data: userData,
       // });
       dispatch(receiveLogin(userData));
-      toast("Sign up successfull");
+      // toast("Sign up successfull");
     })
     .catch((error) => {
       console.log("Error in saving user data ", error.message);
       dispatch(loginError(err.message));
-      toast("Sign up failed");
+      // toast("Sign up failed");
     });
 };
 
@@ -79,14 +78,14 @@ export const loginUser = (creds) => (dispatch) => {
     .signInWithEmailAndPassword(creds.username, creds.password)
     .then(() => {
       var user = auth.currentUser;
-      toast("Loging Successfull");
+      // toast("Loging Successfull");
       dispatch(getUserData(user));
       // console.log("Login success getting user data now");
       // dispatch(receiveLogin(user));
     })
     .catch((error) => {
       dispatch(loginError(error.message));
-      toast(error.message);
+      // toast(error.message);
     });
 };
 

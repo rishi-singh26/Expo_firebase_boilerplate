@@ -7,9 +7,9 @@ import {
   StyleSheet,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { primaryColor, primaryErrColor } from "../../../Shared/Styles/index";
+import { primaryErrColor } from "../../../Shared/Styles/index";
 import { auth } from "../../../Constants/Api";
-import { toast, validateEmail } from "../../../Shared/Functions";
+import { validateEmail } from "../../../Shared/Functions";
 
 export default function ResetPassword(props) {
   const [email, setEmail] = useState("");
@@ -25,7 +25,6 @@ export default function ResetPassword(props) {
       .sendPasswordResetEmail(email)
       .then(() => {
         console.log("Password reset link sent");
-        toast("Password reset link sent");
       })
       .catch((err) => {
         console.log(

@@ -12,8 +12,8 @@ $ expo upgrade
 
 ### Firebase credentials setup
 
-- Create a new folder named "Conatants" inside src.
-- Inside "src" foldar create a file by name "Api.js"
+- Create a new folder named "Constants" inside "src".
+- Inside "Constants" foldar create a file by name "Api.js"
 - Inside "Api.js" copy the code below
 
 ```sh
@@ -39,16 +39,14 @@ export const cloudStorage = firebase.storage();
 
 ### Dependencies
 
-| Dependencies     | README                                    |
-| ---------------- | ----------------------------------------- |
-| Dropbox          | [plugins/dropbox/README.md][pldb]         |
-| GitHub           | [plugins/github/README.md][plgh]          |
-| Google Drive     | [plugins/googledrive/README.md][plgd]     |
-| OneDrive         | [plugins/onedrive/README.md][plod]        |
-| Medium           | [plugins/medium/README.md][plme]          |
-| Google Analytics | [plugins/googleanalytics/README.md][plga] |
-
-### Todos
-
-- Write MORE Tests
-- Add Night Mode
+| Dependencies                          | README                                                                |
+| ------------------------------------- | --------------------------------------------------------------------- |
+| firebase                              | [https://www.npmjs.com/package/firebase]                              |
+| redux                                 | [https://www.npmjs.com/package/redux]                                 |
+| react-redux                           | [https://www.npmjs.com/package/react-redux]                           |
+| redux-logger                          | [https://www.npmjs.com/package/redux-logger]                          |
+| redux-persist                         | [https://www.npmjs.com/package/redux-persist]                         |
+| redux-thunk                           | [https://www.npmjs.com/package/redux-thunk]                           |
+| @expo/vector-icons                    | [https://www.npmjs.com/package/@expo/vector-icons]                    |
+| @react-native-community/async-storage | [https://www.npmjs.com/package/@react-native-community/async-storage] |
+| react-native-paper                    | [https://www.npmjs.com/package/react-native-paper]                    |
