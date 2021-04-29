@@ -14,7 +14,7 @@ import { validateEmail } from "../../../Shared/Functions/index";
 
 export default function Login(props) {
   // Global state
-  const auth = useSelector((state) => state.auth);
+  // const auth = useSelector((state) => state.auth);
   // local state
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");

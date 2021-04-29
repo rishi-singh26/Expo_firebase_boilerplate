@@ -7,6 +7,7 @@ import {
   Text,
   Button,
   Switch,
+  ScrollView,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../Redux/Auth/ActionCreator";
@@ -19,6 +20,7 @@ export default function Home(props) {
   const { showActionSheetWithOptions } = useActionSheet();
 
   const theme = useSelector((state) => state.theme);
+  const globalAuth = useSelector(state => state.auth)
 
   // console.log(theme);
 
@@ -87,7 +89,7 @@ export default function Home(props) {
     <SafeAreaView
       style={[styles.container, { backgroundColor: theme.colors.backTwo }]}
     >
-      <Text style={{ color: theme.colors.textOne }}>Home</Text>
+      <ScrollView>
       <Text></Text>
       <Button
         onPress={() => dispatch(showSnack("This is a nice message"))}
@@ -113,9 +115,19 @@ export default function Home(props) {
         }}
         value={theme.mode}
       />
-      <Text style={{ color: theme.colors.textOne }}>
-        {JSON.stringify(theme.mode)}
+      <Text style={{ color: theme.colors.textOne, fontWeight: "700" }}>
+        Theme data
       </Text>
+      <Text style={{ color: theme.colors.textOne }}>
+        {JSON.stringify(theme, null, 2)}
+      </Text>
+      <Text style={{ color: theme.colors.textOne, fontWeight: "700" }}>
+        Authentiction data
+      </Text>
+      <Text style={{ color: theme.colors.textOne}}>
+        {JSON.stringify(globalAuth, null, 2)}
+      </Text>
+      </ScrollView>
     </SafeAreaView>
   );
 }

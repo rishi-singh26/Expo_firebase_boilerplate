@@ -1,5 +1,6 @@
 import * as ActionTypes from "./ActionTypes";
 import { auth, firestore } from "../../Constants/Api";
+import { showSnack } from "../Snack/ActionCreator";
 
 export const signUpUser = (userData) => (dispatch) => {
   dispatch(requestLogin());
@@ -85,7 +86,8 @@ export const loginUser = (creds) => (dispatch) => {
     })
     .catch((error) => {
       dispatch(loginError(error.message));
-      // toast(error.message);
+      console.log(error.message);
+      dispatch(showSnack(error.message))
     });
 };
 
