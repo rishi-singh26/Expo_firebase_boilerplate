@@ -1,3 +1,5 @@
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/rishi-singh26/Expo_firebase_boilerplate)
+
 # Expo app with firebse authentication and stack navigation setup
 
 ## Installation
