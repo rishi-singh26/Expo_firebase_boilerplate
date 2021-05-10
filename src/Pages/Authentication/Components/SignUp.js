@@ -7,7 +7,6 @@ import {
   TextInput,
   StyleSheet,
 } from "react-native";
-import { primaryColor, primaryErrColor } from "../../../Shared/Styles/index";
 import { Feather } from "@expo/vector-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { signUpUser } from "../../../Redux/Auth/ActionCreator";
@@ -15,7 +14,8 @@ import { validateEmail } from "../../../Shared/Functions/index";
 
 export default function Signup(props) {
   // Global state
-  const auth = useSelector((state) => state.auth);
+  const theme = useSelector(state => state.theme);
+  const { colors } = theme;
   // local state
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -62,7 +62,7 @@ export default function Signup(props) {
     }
     if (pass != reEnterPass) {
       resetErrState();
-      setPasswordErr("Passwords do not match");
+      setPasswordErr("Passwords do not match!");
       return;
     }
     resetErrState();
@@ -78,14 +78,14 @@ export default function Signup(props) {
           }}
           name="chevron-left"
           size={30}
-          color={"#000"}
+          color={colors.textOne}
           style={{ paddingRight: 20 }}
         />
-        <Text style={styles.headerText}>SignUp</Text>
+        <Text style={[styles.headerText, { color: colors.textOne }]}>SignUp</Text>
       </View>
       <View>
         <TextInput
-          style={styles.textInput}
+          style={[styles.textInput, { backgroundColor: colors.backTwo, color: colors.textOne }]}
           placeholder="Full name"
           placeholderTextColor="#aaa"
           value={fullName}
@@ -95,10 +95,10 @@ export default function Signup(props) {
           textContentType="name"
         />
         {fullnameErr.length > 0 ? (
-          <Text style={styles.errTxt}>{fullnameErr}</Text>
+          <Text style={[styles.errTxt, { color: colors.primaryErrColor }]}>{fullnameErr}</Text>
         ) : null}
         <TextInput
-          style={styles.textInput}
+          style={[styles.textInput, { backgroundColor: colors.backTwo, color: colors.textOne }]}
           placeholder="Email"
           placeholderTextColor="#aaa"
           value={email}
@@ -109,9 +109,9 @@ export default function Signup(props) {
           textContentType="emailAddress"
         />
         {emailErr.length > 0 ? (
-          <Text style={styles.errTxt}>{emailErr}</Text>
+          <Text style={[styles.errTxt, { color: colors.primaryErrColor }]}>{emailErr}</Text>
         ) : null}
-        <View style={[styles.textInput, styles.textInputView]}>
+        <View style={[styles.textInput, styles.textInputView, { backgroundColor: colors.backTwo }]}>
           <TextInput
             placeholder="Password"
             placeholderTextColor="#aaa"
@@ -119,11 +119,11 @@ export default function Signup(props) {
             onChangeText={(text) => {
               setPass(text);
             }}
-            style={{ flex: 1 }}
+            style={{ flex: 1, color: colors.textOne }}
             secureTextEntry={shouldShowPassword}
           />
           <Feather
-            color={"#333"}
+            color={colors.textTwo}
             size={18}
             name={shouldShowPassword ? "eye" : "eye-off"}
             onPress={() => {
@@ -131,7 +131,7 @@ export default function Signup(props) {
             }}
           />
         </View>
-        <View style={[styles.textInput, styles.textInputView]}>
+        <View style={[styles.textInput, styles.textInputView, { backgroundColor: colors.backTwo }]}>
           <TextInput
             placeholder="Retype password"
             placeholderTextColor="#aaa"
@@ -139,11 +139,11 @@ export default function Signup(props) {
             onChangeText={(text) => {
               setReEnterPass(text);
             }}
-            style={{ flex: 1 }}
+            style={{ flex: 1, color: colors.textOne }}
             secureTextEntry={shouldShowPassword}
           />
           <Feather
-            color={"#333"}
+            color={colors.textTwo}
             size={18}
             name={shouldShowPassword ? "eye" : "eye-off"}
             onPress={() => {
@@ -152,10 +152,10 @@ export default function Signup(props) {
           />
         </View>
         {passwordErr.length > 0 ? (
-          <Text style={styles.errTxt}>{passwordErr}</Text>
+          <Text style={[styles.errTxt, { color: colors.primaryErrColor }]}>{passwordErr}</Text>
         ) : null}
         <TouchableOpacity
-          style={styles.loginBtn}
+          style={[styles.loginBtn, { backgroundColor: colors.primaryColor }]}
           onPress={() => {
             signUpUserAfterDataValidation();
           }}
@@ -177,10 +177,8 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 25,
     fontWeight: "700",
-    color: "#000",
   },
   textInput: {
-    backgroundColor: "#f2f2f2",
     marginHorizontal: 25,
     marginVertical: 13,
     borderRadius: 10,
@@ -196,7 +194,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     margin: 40,
     alignItems: "center",
-    backgroundColor: "#000",
     borderRadius: 10,
   },
   loginBtnTxt: {
@@ -208,6 +205,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "700",
     marginHorizontal: 30,
-    color: primaryErrColor,
   },
 });

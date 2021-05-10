@@ -7,16 +7,22 @@ import {
   StyleSheet,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { primaryErrColor } from "../../../Shared/Styles/index";
 import { auth } from "../../../Constants/Api";
 import { validateEmail } from "../../../Shared/Functions";
+import { useDispatch, useSelector } from "react-redux";
+import { showSnack } from "../../../Redux/Snack/ActionCreator";
 
 export default function ResetPassword(props) {
+  const theme = useSelector(state => state.theme);
+  const { colors } = theme;
+
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState("");
   const [emailErr, setEmailErr] = useState("");
 
   const sendPasswordResetLink = (email) => {
-    if (!validateEmail(username)) {
+    if (!validateEmail(email)) {
       setEmailErr("Enter a valid email");
       return;
     }
@@ -25,8 +31,10 @@ export default function ResetPassword(props) {
       .sendPasswordResetEmail(email)
       .then(() => {
         console.log("Password reset link sent");
+        dispatch(showSnack("Password reset link sent"));
       })
       .catch((err) => {
+        dispatch(showSnack("Error in sending password reset link, try again."));
         console.log(
           "Here is err message from sending password reset link",
           err.message
@@ -43,13 +51,13 @@ export default function ResetPassword(props) {
           }}
           name="chevron-left"
           size={30}
-          color={"#000"}
+          color={colors.textOne}
           style={{ paddingRight: 20 }}
         />
-        <Text style={styles.headerText}>Reset Password</Text>
+        <Text style={[styles.headerText, { color: colors.textOne}]}>Reset Password</Text>
       </View>
       <TextInput
-        style={styles.textInput}
+        style={[styles.textInput, { backgroundColor: colors.backTwo, color: colors.textOne }]}
         placeholder="Email"
         placeholderTextColor="#aaa"
         value={email}
@@ -60,10 +68,10 @@ export default function ResetPassword(props) {
         textContentType="emailAddress"
       />
       {emailErr.length > 0 ? (
-        <Text style={styles.errTxt}>{emailErr}</Text>
+        <Text style={[styles.errTxt, { color: colors.primaryErrColor}]}>{emailErr}</Text>
       ) : null}
       <TouchableOpacity
-        style={styles.loginBtn}
+        style={[styles.loginBtn, { backgroundColor: colors.primaryColor }]}
         onPress={() => sendPasswordResetLink(email)}
       >
         <Text style={styles.loginBtnTxt}>Send password reset link</Text>
@@ -82,7 +90,6 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 25,
     fontWeight: "700",
-    color: "#000",
   },
   textInput: {
     backgroundColor: "#f2f2f2",
@@ -98,7 +105,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 40,
     marginVertical: 20,
     alignItems: "center",
-    backgroundColor: "#000",
     borderRadius: 10,
   },
   loginBtnTxt: {
@@ -110,6 +116,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "700",
     marginHorizontal: 30,
-    color: primaryErrColor,
   },
 });

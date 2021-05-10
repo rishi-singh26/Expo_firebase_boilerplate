@@ -7,14 +7,18 @@ import {
   StyleSheet,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { primaryColor, primaryErrColor } from "../../../Shared/Styles/index";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "../../../Redux/Auth/ActionCreator";
 import { validateEmail } from "../../../Shared/Functions/index";
+import {
+  changeToDark,
+  changeToLight,
+} from "../../../Redux/Theme/ActionCreator";
 
 export default function Login(props) {
   // Global state
-  // const auth = useSelector((state) => state.auth);
+  const theme = useSelector((state) => state.theme);
+  const { colors } = theme;
   // local state
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -34,17 +38,36 @@ export default function Login(props) {
 
   return (
     <View>
-      <View style={styles.header}>
+      <View style={[styles.header, { backgroundColor: colors.backOne }]}>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Feather
+            color={"#fff"}
+            size={24}
+            name="plus-square"
+            style={[styles.iconStyle, { backgroundColor: colors.primaryColor }]}
+          />
+          <Text style={[styles.headerText, { color: colors.textOne }]}>
+            Boilerplate
+          </Text>
+        </View>
         <Feather
-          color={"#fff"}
+          onPress={() => {
+            theme.mode ? dispatch(changeToDark()) : dispatch(changeToLight());
+          }}
+          color={colors.textOne}
           size={24}
-          name="plus-square"
-          style={styles.iconStyle}
+          name={theme.mode ? "moon" : "sun"}
+          style={[
+            styles.iconStyle,
+            { backgroundColor: colors.backTwo, padding: 6 },
+          ]}
         />
-        <Text style={styles.headerText}>Boilerplate</Text>
       </View>
       <TextInput
-        style={styles.textInput}
+        style={[
+          styles.textInput,
+          { backgroundColor: colors.backTwo, color: colors.textOne },
+        ]}
         placeholder="Email"
         placeholderTextColor="#aaa"
         value={email}
@@ -55,9 +78,17 @@ export default function Login(props) {
         textContentType="emailAddress"
       />
       {emailErr.length > 0 ? (
-        <Text style={styles.errTxt}>{emailErr}</Text>
+        <Text style={[styles.errTxt, { color: colors.primaryErrColor }]}>
+          {emailErr}
+        </Text>
       ) : null}
-      <View style={[styles.textInput, styles.textInputView]}>
+      <View
+        style={[
+          styles.textInput,
+          styles.textInputView,
+          { backgroundColor: colors.backTwo },
+        ]}
+      >
         <TextInput
           placeholder="Password"
           placeholderTextColor="#aaa"
@@ -65,11 +96,11 @@ export default function Login(props) {
           onChangeText={(text) => {
             setPass(text);
           }}
-          style={{ flex: 1 }}
+          style={{ flex: 1, color: colors.textOne }}
           secureTextEntry={shouldShowPassword}
         />
         <Feather
-          color={"#333"}
+          color={colors.textTwo}
           size={18}
           name={shouldShowPassword ? "eye" : "eye-off"}
           onPress={() => {
@@ -79,20 +110,28 @@ export default function Login(props) {
       </View>
       <TouchableOpacity
         onPress={() => loginUserOnDataValidation(email, pass)}
-        style={styles.loginBtn}
+        style={[styles.loginBtn, { backgroundColor: colors.primaryColor }]}
       >
         <Text style={styles.loginBtnTxt}>Login</Text>
       </TouchableOpacity>
       <View style={styles.btnsView}>
         <Text
           onPress={() => props.onForgotPassPress()}
-          style={[styles.loginBtnTxt, styles.forgotPasswordBtn]}
+          style={[
+            styles.loginBtnTxt,
+            styles.forgotPasswordBtn,
+            { color: colors.textOne, borderRightColor: colors.textOne },
+          ]}
         >
           Forgot Password
         </Text>
         <Text
           onPress={() => props.onSignupPress()}
-          style={[styles.loginBtnTxt, styles.signUpBtn]}
+          style={[
+            styles.loginBtnTxt,
+            styles.signUpBtn,
+            { color: colors.textOne },
+          ]}
         >
           SignUp
         </Text>
@@ -114,7 +153,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginHorizontal: 5,
     paddingRight: 10,
-    borderRightColor: "#000",
     borderRightWidth: 1,
   },
   signUpBtn: {
@@ -124,7 +162,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   iconStyle: {
-    backgroundColor: primaryColor,
     padding: 10,
     marginRight: 10,
     borderRadius: 8,
@@ -135,14 +172,13 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
   },
   headerText: {
     fontSize: 27,
     fontWeight: "700",
-    color: "#000",
   },
   textInput: {
-    backgroundColor: "#f2f2f2",
     marginHorizontal: 25,
     marginVertical: 13,
     borderRadius: 10,
@@ -159,7 +195,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     margin: 40,
     alignItems: "center",
-    backgroundColor: "#000",
     borderRadius: 10,
   },
   loginBtnTxt: {
@@ -171,6 +206,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "700",
     marginHorizontal: 30,
-    color: primaryErrColor,
   },
 });

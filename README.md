@@ -50,5 +50,5 @@ export const cloudStorage = firebase.storage();
 | redux-persist                         | [https://www.npmjs.com/package/redux-persist]                         |
 | redux-thunk                           | [https://www.npmjs.com/package/redux-thunk]                           |
 | @expo/vector-icons                    | [https://www.npmjs.com/package/@expo/vector-icons]                    |
-| @react-native-community/async-storage | [https://www.npmjs.com/package/@react-native-community/async-storage] |
+| @react-native-async-storage/async-storage | [https://www.npmjs.com/package/@react-native-async-storage/async-storage] |
 | react-native-paper                    | [https://www.npmjs.com/package/react-native-paper]                    |

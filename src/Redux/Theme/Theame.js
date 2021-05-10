@@ -15,7 +15,7 @@ const lightMode = {
   textOne: "#000",
   textTwo: "#444",
   textThree: "#777",
-  textThree: "#fff",
+  textFour: "#fff",
   borderColor: "#efefef",
 };
 
@@ -34,7 +34,7 @@ const darkMode = {
   textOne: "#fff",
   textTwo: "#aaa",
   textThree: "#888",
-  textThree: "#000",
+  textFour: "#000",
   borderColor: "#555",
 };
 

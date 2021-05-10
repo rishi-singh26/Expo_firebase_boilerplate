@@ -10,11 +10,12 @@ export const signUpUser = (userData) => (dispatch) => {
   return auth
     .createUserWithEmailAndPassword(userData.email, userData.password)
     .then((user) => {
-      // dispatch(receiveLogin(user));
+      dispatch(showSnack("SignUp Successfull"));
       userData.userId = auth.currentUser.uid;
       userData.isEmailVerified = false;
+      userData.photoURL = null;
       delete userData.password;
-      dispatch(saveUserData(userData, user));
+      dispatch(saveUserData(userData));
     })
     .catch((err) => {
       console.log("Error in signup", err.message);
@@ -23,44 +24,19 @@ export const signUpUser = (userData) => (dispatch) => {
     });
 };
 
-const saveUserData = (userData, user) => (dispatch) => {
+const saveUserData = (userData) => (dispatch) => {
+  console.log("Here is the userData to be saved", userData);
   firestore
     .collection("userData")
     .add(userData)
     .then(() => {
-      // console.log({
-      //   mess: "User data added and login received",
-      //   data: userData,
-      // });
       dispatch(receiveLogin(userData));
+      // console.log({ mess: "User data added and login received", data: userData });
       // toast("Sign up successfull");
     })
     .catch((error) => {
       console.log("Error in saving user data ", error.message);
-      dispatch(loginError(err.message));
-      // toast("Sign up failed");
-    });
-};
-
-const getUserData = (user) => (dispatch) => {
-  firestore
-    .collection("userData")
-    .where("userId", "==", user.uid)
-    .get()
-    .then((resp) => {
-      let userData = [];
-      resp.forEach((user) => {
-        const data = user.data();
-        const _id = user.id;
-        userData.push({ _id, ...data });
-      });
-      console.log("User data successfully fetched after login", userData);
-      dispatch(receiveLogin(userData[0]));
-      // toast("Sign up successfull");
-    })
-    .catch((error) => {
-      console.log("Error in adding chat ", error.message);
-      dispatch(loginError(err.message));
+      // dispatch(loginError(err.message));
       // toast("Sign up failed");
     });
 };
@@ -77,12 +53,19 @@ export const loginUser = (creds) => (dispatch) => {
 
   return auth
     .signInWithEmailAndPassword(creds.username, creds.password)
-    .then(() => {
-      var user = auth.currentUser;
-      // toast("Loging Successfull");
-      dispatch(getUserData(user));
+    .then((user) => {
+      console.log(user);
+      dispatch(showSnack("Login Successfull"));
       // console.log("Login success getting user data now");
-      // dispatch(receiveLogin(user));
+      const userData = {
+        email: user.user.email,
+        userId: user.user.uid,
+        fullName: user.user.displayName,
+        isEmailVerified: user.user.emailVerified,
+        photoURL: user.user.photoURL,
+      }
+      console.log(userData);
+      dispatch(receiveLogin(userData));
     })
     .catch((error) => {
       dispatch(loginError(error.message));
