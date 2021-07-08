@@ -36,6 +36,7 @@ export default function Login(props) {
     dispatch(loginUser({ username, password }));
   };
 
+  // TODO: Change app name and Icon below
   return (
     <View>
       <View style={[styles.header, { backgroundColor: colors.backOne }]}>

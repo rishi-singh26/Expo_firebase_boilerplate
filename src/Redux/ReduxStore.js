@@ -2,6 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Auth } from "./Auth/Auth";
 import { Snack } from "./Snack/Snack";
 import { Theme } from "./Theme/Theame";
+import { Alert } from "./Alert/Alert";
 
 import thunk from "redux-thunk";
 import logger from "redux-logger";
@@ -21,6 +22,7 @@ export const ConfigureStore = () => {
       auth: Auth,
       snack: Snack,
       theme: Theme,
+      alert: Alert,
     }),
     applyMiddleware(thunk)
   );

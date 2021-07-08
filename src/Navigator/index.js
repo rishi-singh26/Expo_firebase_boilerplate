@@ -3,6 +3,9 @@ import { StatusBar } from "react-native";
 import Home from "../Pages/Home/index";
 import Authentication from "../Pages/Authentication";
 
+import CustomAlert from "../Shared/Components/CustomAlert";
+import ThreeBtnAlert from "../Shared/Components/ThreeBtnAlert";
+
 import { Snackbar } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -15,6 +18,7 @@ export default function Navigator() {
   const auth = useSelector((state) => state.auth);
   const snack = useSelector((state) => state.snack);
   const theme = useSelector((state) => state.theme);
+  const alert = useSelector((state) => state.alert);
 
   const dispatch = useDispatch();
 
@@ -67,6 +71,8 @@ export default function Navigator() {
       >
         {snack.message}
       </Snackbar>
+      <CustomAlert isVisible={alert.isVisible} />
+      <ThreeBtnAlert isVisible={alert.is3BtnAlertVisible} />
     </NavigationContainer>
   );
 }
