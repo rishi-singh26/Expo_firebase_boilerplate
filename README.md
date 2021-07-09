@@ -5,7 +5,7 @@
 ## Installation
 
 ```sh
-$ git clone https://github.com/rishi-singh26/Code_Scanner.git
+$ https://github.com/rishi-singh26/Expo_firebase_boilerplate.git
 Clones this repo
 $ npm install
 Install all the node modules
